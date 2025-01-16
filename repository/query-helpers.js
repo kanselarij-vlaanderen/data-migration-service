@@ -1,6 +1,6 @@
 import { sparqlEscape, sparqlEscapeUri } from 'mu';
 import { querySudo as query, updateSudo as update } from './auth-sudo';
-import { MU_AUTH_PAGE_SIZE, VIRTUOSO_RESOURCE_PAGE_SIZE } from '../config';
+import { MU_AUTH_PAGE_SIZE } from '../config';
 
 /**
  * Convert results of select query to an array of objects.

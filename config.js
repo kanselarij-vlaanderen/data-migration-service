@@ -20,7 +20,7 @@ if (isTruthy(process.env.RELOAD_ON_INIT)) {
 }
 
 const MU_AUTH_PAGE_SIZE = parseInt(process.env.MU_AUTH_PAGE_SIZE || '2500');
-const VIRTUOSO_RESOURCE_PAGE_SIZE = parseInt(process.env.VIRTUOSO_RESOURCE_PAGE_SIZE || '25000');
+const VIRTUOSO_RESOURCE_PAGE_SIZE = parseInt(process.env.VIRTUOSO_RESOURCE_PAGE_SIZE || '10000');
 const VALUES_BLOCK_SIZE = parseInt(process.env.VALUES_BLOCK_SIZE || '100');
 
 function isTruthy(value) {

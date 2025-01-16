@@ -131,59 +131,43 @@ class Distributor {
 
           // Outgoing triples
           await updateTriplestore(`
-          INSERT {
-            GRAPH <${this.tempGraph}> {
-              ?resource ?p ?o .
-            }
-          } WHERE {
-            {
-              SELECT ?resource ?p ?o WHERE {
-                {
-                  SELECT ?resource {
-                    SELECT DISTINCT ?resource {
-                      GRAPH <${this.tempGraph}> {
-                        ?resource a <${type}> .
-                      }
-                    } ORDER BY ?resource
-                  } LIMIT ${limit} OFFSET ${offset}
-                }
-                {
-                  GRAPH <${this.sourceGraph}> {
-                    ?resource ?p ?o .
-                  }
-                }
+            INSERT {
+              GRAPH <${this.tempGraph}> {
+                ?resource ?p ?o .
               }
-            }
-          }
-        `);
+            } WHERE {
+              {
+                SELECT DISTINCT ?resource {
+                  GRAPH <${this.tempGraph}> {
+                    ?resource a <${type}> .
+                  }
+                } ORDER BY ?resource LIMIT ${limit} OFFSET ${offset}
+              }
+              GRAPH <${this.sourceGraph}> {
+                ?resource a <${type}> . # for Virtuoso performance
+                ?resource ?p ?o .
+              }
+            }`);
 
           // Incoming triples
           await updateTriplestore(`
-          INSERT {
-            GRAPH <${this.tempGraph}> {
-              ?s ?p ?resource .
-            }
-          } WHERE {
-            {
-              SELECT ?s ?p ?resource WHERE {
-                {
-                  SELECT ?resource {
-                    SELECT DISTINCT ?resource {
-                      GRAPH <${this.tempGraph}> {
-                        ?resource a <${type}> .
-                      }
-                    } ORDER BY ?resource
-                  } LIMIT ${limit} OFFSET ${offset}
-                }
-                {
-                  GRAPH <${this.sourceGraph}> {
-                    ?s ?p ?resource .
-                  }
-                }
+            INSERT {
+              GRAPH <${this.tempGraph}> {
+                ?s ?p ?resource .
               }
-            }
-          }
-        `);
+            } WHERE {
+              {
+                SELECT DISTINCT ?resource {
+                  GRAPH <${this.tempGraph}> {
+                    ?resource a <${type}> .
+                  }
+                } ORDER BY ?resource LIMIT ${limit} OFFSET ${offset}
+              }
+              GRAPH <${this.sourceGraph}> {
+                ?resource a <${type}> . # for Virtuoso performance
+                ?s ?p ?resource .
+              }
+            }`)
         });
 
         currentBatch++;

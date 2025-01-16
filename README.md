@@ -86,6 +86,7 @@ The following environment variables can be optionally configured:
 |`NB_OF_QUERY_RETRIES`      | 6                   | Number of times a failed query will be retried. Only applicable to direct queries.
 |`RETRY_TIMEOUT_MS`         | 1000                | Query timeout (ms). Only applicable to direct queries.
 |`DELTA_INTERVAL_MS`        | 60000               | Time to wait before starting the next data propagation (ms) when the first delta arrives. This allows to collect multiple delta messages in 1 propagation process. |
+|`VIRTUOSO_RESOURCE_PAGE_SIZE` | 10000                | The number of triples selected in the subquery (= VIRTUOSO_RESOURCE_PAGE_SIZE * triples_for_resource). should not exceed the maximum number of triples returned by the database. (ie. ResultSetMaxRows in Virtuoso). Should also not exceed the maximum number of rows sorted. (ie MaxSortedTopRows in virtuoso) |
 
 Logging can be enabled or disabled on different levels, using `true` or `false`
 
